@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DG Growth – Para a [Nome da Clínica]</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #D4AF37;
+    --gold-light: #E8CC6A;
+    --dark: #080C0F;
+    --dark2: #0F1419;
+    --dark3: #161D24;
+    --white: #F5F0E8;
+    --white-dim: rgba(245,240,232,0.55);
+    --white-faint: rgba(245,240,232,0.12);
+    --rose: #C8748A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp   { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+  @keyframes shimmer  { 0%,100% { opacity:.6; } 50% { opacity:1; } }
+  @keyframes lineGrow { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+  @keyframes pulse    { 0%,100% { transform:scale(1); } 50% { transform:scale(1.08); } }
+
+  .fade-up   { animation: fadeUp  .9s cubic-bezier(.16,1,.3,1) both; }
+  .fade-in   { animation: fadeIn  1.2s ease both; }
+  .delay-1   { animation-delay: .15s; }
+  .delay-2   { animation-delay: .3s; }
+  .delay-3   { animation-delay: .45s; }
+  .delay-4   { animation-delay: .6s; }
+  .delay-5   { animation-delay: .75s; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+
+  /* ── HEADER / HERO ── */
+  header {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 80px 32px;
+  }
+
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(212,175,55,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212,175,55,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+  }
+
+  .bg-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,175,55,0.07) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+
+  header > * { position: relative; z-index: 1; }
+
+  .logo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(212,175,55,0.3);
+    border-radius: 99px;
+    padding: 8px 20px;
+    margin-bottom: 48px;
+    font-size: 11px;
+    letter-spacing: .15em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .logo-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 2s infinite;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: clamp(.95rem, 2vw, 1.1rem);
+    color: var(--white-dim);
+    max-width: 540px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--gold);
+    color: var(--dark);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: .85rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 36px;
+    border-radius: 2px;
+    transition: background .2s, transform .2s;
+  }
+
+  .hero-cta:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .hero-cta-arrow { font-size: 18px; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 100px 0; }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+
+  h2 em { font-style: italic; color: var(--gold); }
+
+  .section-desc {
+    font-size: 1rem;
+    color: var(--white-dim);
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 60px;
+  }
+
+  .gold-line {
+    width: 48px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 40px;
+    transform-origin: left;
+    animation: lineGrow .8s cubic-bezier(.16,1,.3,1) .3s both;
+  }
+
+  /* ── PROBLEMA ── */
+  .problema-section { background: var(--dark2); }
+
+  .problema-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(212,175,55,0.1);
+    border: 1px solid rgba(212,175,55,0.1);
+    margin-top: 20px;
+  }
+
+  .problema-item {
+    background: var(--dark2);
+    padding: 32px 28px;
+    transition: background .25s;
+  }
+
+  .problema-item:hover { background: rgba(212,175,55,0.04); }
+
+  .problema-num {
+    font-size: 10px;
+    letter-spacing: .15em;
+    color: rgba(212,175,55,0.4);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .problema-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .problema-desc {
+    font-size: .875rem;
+    color: var(--white-dim);
+    line-height: 1.7;
+  }
+
+  /* ── SOLUÇÃO / PACOTES ── */
+  .solucao-section { background: var(--dark); }
+
+  .pacotes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(245,240,232,0.08);
+  }
+
+  .pacote {
+    background: var(--dark3);
+    display: flex;
+    flex-direction: column;
+    transition: background .25s;
+    position: relative;
+  }
+
+  .pacote:hover { background: rgba(212,175,55,0.04); }
+
+  .pacote.destaque {
+    background: #0D1318;
+    border-top: 3px solid var(--gold);
+  }
+
+  .pacote-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+
+  .pacote-header { padding: 36px 28px 24px; }
+
+  .pacote-nome {
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .pacote-preco {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .pacote-preco small {
+    font-family: 'Inter', sans-serif;
+    font-size: .75rem;
+    color: var(--white-dim);
+    font-weight: 300;
+  }
+
+  .pacote-sub {
+    font-size: .8rem;
+    color: var(--white-dim);
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  .pacote-divider {
+    height: 1px;
+    background: rgba(245,240,232,0.07);
+    margin: 0 28px;
+  }
+
+  .pacote-items { padding: 24px 28px; flex: 1; }
+
+  .pacote-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: .85rem;
+    color: var(--white-dim);
+    line-height: 1.5;
+  }
+
+  .pacote-check {
+    color: var(--gold);
+    font-size: 12px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .pacote-footer { padding: 20px 28px 32px; }
+
+  .pacote-cta {
+    display: block;
+    text-align: center;
+    padding: 12px 24px;
+    border: 1px solid rgba(212,175,55,0.3);
+    color: var(--gold);
+    font-family: 'Inter', sans-serif;
+    font-size: .8rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all .2s;
+  }
+
+  .pacote-cta:hover { background: var(--gold); color: var(--dark); }
+
+  .pacote.destaque .pacote-cta {
+    background: var(--gold);
+    color: var(--dark);
+    border-color: var(--gold);
+  }
+
+  .pacote.destaque .pacote-cta:hover { background: var(--gold-light); }
+
+  /* ── PRAZO ── */
+  .prazo-box {
+    margin-top: 48px;
+    border: 1px solid rgba(212,175,55,0.2);
+    background: rgba(212,175,55,0.04);
+    padding: 36px 40px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .prazo-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .prazo-texto h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .prazo-texto p {
+    font-size: .9rem;
+    color: var(--white-dim);
+    line-height: 1.7;
+  }
+
+  /* ── COMO FUNCIONA ── */
+  .processo-section { background: var(--dark2); }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 28px;
+    bottom: 28px;
+    width: 1px;
+    background: rgba(212,175,55,0.2);
+  }
+
+  .step {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.05);
+    position: relative;
+  }
+
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(212,175,55,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gold);
+    background: var(--dark2);
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .step-content p {
+    font-size: .875rem;
+    color: var(--white-dim);
+    line-height: 1.7;
+  }
+
+  /* ── GARANTIA ── */
+  .garantia-section { background: var(--dark); }
+
+  .garantia-box {
+    border-top: 3px solid var(--gold);
+    background: var(--dark3);
+    padding: 56px 64px;
+    text-align: center;
+  }
+
+  .garantia-icon {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .garantia-box h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 16px;
+  }
+
+  .garantia-box p {
+    color: var(--white-dim);
+    max-width: 500px;
+    margin: 0 auto 40px;
+    font-size: .95rem;
+    line-height: 1.8;
+  }
+
+  /* ── CTA FINAL ── */
+  .cta-section { background: var(--dark2); }
+
+  .cta-inner {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-inner h2 { margin-bottom: 16px; }
+  .cta-inner p  { color: var(--white-dim); margin-bottom: 48px; font-size: .95rem; }
+
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--gold);
+    color: var(--dark);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: .85rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 32px;
+    border-radius: 2px;
+    transition: background .2s, transform .2s;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(245,240,232,0.2);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: .85rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 28px;
+    border-radius: 2px;
+    transition: border-color .2s;
+  }
+
+  .btn-secondary:hover { border-color: rgba(245,240,232,0.5); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(245,240,232,0.07);
+    padding: 40px 32px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .footer-logo span { color: var(--gold); }
+
+  .footer-links {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-size: .8rem;
+    color: var(--white-dim);
+    text-decoration: none;
+    letter-spacing: .06em;
+    transition: color .2s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── VIP ── */
+  .vip-section {
+    background: var(--dark2);
+    padding: 0 0 100px;
+  }
+
+  .vip-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    border-top: 1px solid rgba(212,175,55,0.15);
+    padding-top: 80px;
+  }
+
+  .vip-crown {
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 16px;
+    animation: shimmer 2.5s ease-in-out infinite;
+  }
+
+  .vip-label {
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .vip-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+
+  .vip-titulo em { font-style: italic; color: var(--gold); }
+
+  .vip-desc {
+    font-size: .95rem;
+    color: var(--white-dim);
+    line-height: 1.8;
+  }
+
+  .vip-card {
+    background: var(--dark);
+    border: 1px solid rgba(212,175,55,0.35);
+    border-top: 3px solid var(--gold);
+    padding: 40px 36px;
+  }
+
+  .vip-card-top { text-align: center; margin-bottom: 28px; }
+
+  .vip-card-label {
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .vip-desconto {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .vip-desconto span {
+    font-size: 2.5rem;
+    vertical-align: super;
+  }
+
+  .vip-card-desc {
+    font-size: .875rem;
+    color: var(--white-dim);
+    line-height: 1.6;
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
+  .vip-card-divider {
+    height: 1px;
+    background: rgba(212,175,55,0.15);
+    margin: 24px 0;
+  }
+
+  .vip-card-items { margin-bottom: 28px; }
+
+  .vip-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    font-size: .85rem;
+    color: var(--white-dim);
+    line-height: 1.5;
+  }
+
+  .vip-check {
+    color: var(--gold);
+    font-size: 11px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .vip-cta {
+    display: block;
+    text-align: center;
+    padding: 14px 24px;
+    background: var(--gold);
+    color: var(--dark);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: .85rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background .2s, transform .2s;
+  }
+
+  .vip-cta:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .problema-grid { grid-template-columns: 1fr; }
+    .pacotes { grid-template-columns: 1fr; }
+    .prazo-box { flex-direction: column; gap: 20px; text-align: center; }
+    .garantia-box { padding: 40px 28px; }
+    .steps::before { display: none; }
+    .step { flex-direction: column; gap: 12px; }
+    .vip-box { grid-template-columns: 1fr; gap: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+<header>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <div class="logo-badge fade-in">
+    <span class="logo-dot"></span>
+    DG Growth · Estratégias Digitais & IA
+  </div>
+
+  <p class="hero-eyebrow fade-up delay-1">Exclusivo para clínicas estéticas</p>
+
+  <h1 class="fade-up delay-2">
+    Sua clínica merece<br>
+    <em>mais do que posts bonitos.</em>
+  </h1>
+
+  <p class="hero-sub fade-up delay-3">
+    Pacientes pesquisam no Google antes de agendar. Se não encontram sua clínica,
+    encontram a concorrência. A DG Growth resolve isso.
+  </p>
+
+  <a href="https://wa.me/5515998079816?text=Oi%20Carlos!%20Vi%20o%20material%20da%20DG%20Growth%20e%20quero%20saber%20mais."
+     class="hero-cta fade-up delay-4" target="_blank">
+    Quero saber mais
+    <span class="hero-cta-arrow">→</span>
+  </a>
+</header>
+
+<!-- ── O PROBLEMA ────────────────────────────────────────────────────────── -->
+<section class="problema-section">
+  <div class="container">
+    <span class="section-label">O que está acontecendo</span>
+    <h2>Você tem uma clínica incrível.<br><em>Mas pacientes não estão te encontrando.</em></h2>
+    <div class="gold-line"></div>
+    <p class="section-desc">
+      97% das pessoas pesquisam online antes de escolher uma clínica estética.
+      Se você não tem site — ou o site não converte — você está deixando dinheiro na mesa todo dia.
+    </p>
+
+    <div class="problema-grid">
+      <div class="problema-item">
+        <span class="problema-num">01</span>
+        <p class="problema-titulo">Invisível no Google</p>
+        <p class="problema-desc">Quando alguém pesquisa "harmonização facial [cidade]", sua clínica não aparece. A paciente agenda em outra.</p>
+      </div>
+      <div class="problema-item">
+        <span class="problema-num">02</span>
+        <p class="problema-titulo">Instagram não substitui site</p>
+        <p class="problema-desc">Instagram é relacionamento. Site é credibilidade e captação. Sem site, você não existe para quem está pesquisando agora.</p>
+      </div>
+      <div class="problema-item">
+        <span class="problema-num">03</span>
+        <p class="problema-titulo">Leads escapando à noite</p>
+        <p class="problema-desc">Pacientes pesquisam fora do horário comercial. Sem site com botão de agendamento, esse lead vai embora.</p>
+      </div>
+      <div class="problema-item">
+        <span class="problema-num">04</span>
+        <p class="problema-titulo">Concorrência na sua frente</p>
+        <p class="problema-desc">Clínicas com site profissional captam as pacientes que deveriam ser suas — todos os dias, sem que você saiba.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── A SOLUÇÃO ─────────────────────────────────────────────────────────── -->
+<section class="solucao-section">
+  <div class="container">
+    <span class="section-label">A solução</span>
+    <h2>Um site que trabalha<br><em>por você 24 horas por dia.</em></h2>
+    <div class="gold-line"></div>
+    <p class="section-desc">
+      Criamos sites profissionais para clínicas estéticas com foco em um único resultado:
+      transformar visitantes em pacientes agendados.
+    </p>
+
+    <div class="pacotes">
+
+      <!-- Essencial -->
+      <div class="pacote">
+        <div class="pacote-header">
+          <span class="pacote-nome">Essencial</span>
+          <div class="pacote-preco">R$ 1.450 <small>· pagamento em 2x</small></div>
+          <p class="pacote-sub">Para clínicas que precisam estar no ar rápido</p>
+        </div>
+        <div class="pacote-divider"></div>
+        <div class="pacote-items">
+          <div class="pacote-item"><span class="pacote-check">✓</span>Landing page profissional</div>
+          <div class="pacote-item"><span class="pacote-check">✓</span>Design responsivo para celular</div>
+          <div class="pacote-item"><span class="pacote-check">✓</span>Botão direto para WhatsApp</div>
+          <div class="pacote-item"><span class="pacote-check">✓</span>Formulário de agendamento</div>
+          <div class="pacote-item"><span class="pacote-check">✓</span>Entrega rápida após aprovação dos materiais</div>
+        </div>
+        <div class="pacote-footer">
+          <a href="https://wa.me/5515998079816?text=Quero%20o%20pacote%20Essencial%20de%20site%20para%20minha%20cl%C3%ADnica!"
+             class="pacote-cta" target="_blank">Quero este</a>
+        </div>
+      </div>
+
+      <!-- Profissional (destaque) -->
+      <div class="pacote destaque">
+        <span class="pacote-badge">Mais escolhido</span>
+        <div class="pacote-header">
+          <span class="pacote-nome">Profissional</span>
+          <div class="pacote-preco">R$ 1.950 <small>· pagamento em 2x</small></div>
+          <p class="pacote-sub">Para clínicas que querem aparecer e converter</p>
+        </div>
+        <div class="pacote-divider"></div>
+        <div class="pacote-items">
+          <div class="pacote-item"><span class="pacote-check">✓</span>Tudo do plano Essencial</div>
+          <div class="pacote-item"><span class="pacote-check">✓</span>Domínio .com.br incluso (1 ano)</div>
+          <div class="pacote-item"><span class="pacote-check">✓</span>Hospedagem inclusa (1 ano)</div>
+          <div class="pacote-item"><span class="pacote-check">✓</span>Até 3 páginas (home, serviços, contato)</div>
+          <div class="pacote-item"><span class="pacote-check">✓</span>Google Analytics configurado</div>
+          <div class="pacote-item"><span class="pacote-check">✓</span>Entrega ágil com processo 100% estruturado</div>
+        </div>
+        <div class="pacote-footer">
+          <a href="https://wa.me/5515998079816?text=Quero%20o%20pacote%20Profissional%20de%20site%20para%20minha%20cl%C3%ADnica!"
+             class="pacote-cta" target="_blank">Quero este</a>
+        </div>
+      </div>
+
+      <!-- Premium -->
+      <div class="pacote">
+        <div class="pacote-header">
+          <span class="pacote-nome">Premium</span>
+          <div class="pacote-preco">R$ 2.650 <small>· pagamento em 2x</small></div>
+          <p class="pacote-sub">Para clínicas que querem dominar o digital</p>
+        </div>
+        <div class="pacote-divider"></div>
+        <div class="pacote-items">
+          <div class="pacote-item"><span class="pacote-check">✓</span>Tudo do plano Profissional</div>
+          <div class="pacote-item"><span class="pacote-check">✓</span>Google Meu Negócio configurado</div>
+          <div class="pacote-item"><span class="pacote-check">✓</span>SEO básico on-page</div>
+          <div class="pacote-item"><span class="pacote-check">✓</span>Link de agendamento integrado</div>
+          <div class="pacote-item"><span class="pacote-check">✓</span>3 rodadas de revisão</div>
+          <div class="pacote-item"><span class="pacote-check">✓</span>Processo completo com acompanhamento em cada etapa</div>
+        </div>
+        <div class="pacote-footer">
+          <a href="https://wa.me/5515998079816?text=Quero%20o%20pacote%20Premium%20de%20site%20para%20minha%20cl%C3%ADnica!"
+             class="pacote-cta" target="_blank">Quero este</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="prazo-box">
+      <div class="prazo-num">100%</div>
+      <div class="prazo-texto">
+        <h3>Satisfação garantida ou você não paga a segunda parcela.</h3>
+        <p>Preço fixo, escopo definido, sem surpresa. Você aprova cada etapa antes de seguirmos.
+           Se em algum momento o projeto não estiver no caminho certo, paramos, ajustamos
+           e só avançamos quando você estiver satisfeita.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VIP ────────────────────────────────────────────────────────────────── -->
+<section class="vip-section">
+  <div class="container">
+    <div class="vip-box">
+      <div class="vip-left">
+        <div class="vip-crown">♛</div>
+        <span class="vip-label">Exclusivo para clientes de site</span>
+        <h2 class="vip-titulo">Bem-vinda ao<br><em>Clube VIP DG Growth.</em></h2>
+        <p class="vip-desc">
+          Toda clínica que fecha o site conosco entra automaticamente no nosso
+          Clube VIP — e ganha um benefício que nenhum outro cliente tem acesso.
+        </p>
+      </div>
+      <div class="vip-right">
+        <div class="vip-card">
+          <div class="vip-card-top">
+            <span class="vip-card-label">Benefício exclusivo</span>
+            <div class="vip-desconto">50% <span>OFF</span></div>
+            <p class="vip-card-desc">no primeiro mês de qualquer pacote de marketing da DG Growth</p>
+          </div>
+          <div class="vip-card-divider"></div>
+          <div class="vip-card-items">
+            <div class="vip-item">
+              <span class="vip-check">✦</span>
+              Válido para os pacotes Starter, Growth e Elite com IA
+            </div>
+            <div class="vip-item">
+              <span class="vip-check">✦</span>
+              Sem carência — pode usar a partir do mês seguinte ao site
+            </div>
+            <div class="vip-item">
+              <span class="vip-check">✦</span>
+              Exclusivo e intransferível para clientes de site
+            </div>
+            <div class="vip-item">
+              <span class="vip-check">✦</span>
+              Atendimento prioritário em toda a jornada
+            </div>
+          </div>
+          <a href="https://wa.me/5515998079816?text=Quero%20fechar%20o%20site%20e%20saber%20mais%20sobre%20o%20Clube%20VIP%20DG%20Growth!"
+             class="vip-cta" target="_blank">
+            Quero ser VIP →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMO FUNCIONA ─────────────────────────────────────────────────────── -->
+<section class="processo-section">
+  <div class="container">
+    <span class="section-label">O processo</span>
+    <h2>Do zero ao site no ar<br><em>em 4 passos simples.</em></h2>
+    <div class="gold-line"></div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Você escolhe o pacote e paga 50%</h3>
+          <p>PIX ou transferência. Rápido, sem burocracia. Sua vaga na agenda fica reservada.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Nos envia os materiais em 30 minutos</h3>
+          <p>Logo da clínica, fotos (usamos as do Instagram se preferir) e lista de procedimentos. Só isso.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Entregamos o design para aprovação</h3>
+          <p>Em até 3 dias você recebe o design completo. Pede os ajustes que quiser — quantas rodadas seu pacote incluir.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>Site no ar — e você paga os 50% restantes</h3>
+          <p>Só paga o restante quando estiver 100% satisfeita com o resultado. Sua clínica começa a captar pacientes imediatamente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GARANTIA ──────────────────────────────────────────────────────────── -->
+<section class="garantia-section">
+  <div class="container">
+    <div class="garantia-box">
+      <div class="garantia-icon">🛡</div>
+      <h2>Satisfação garantida<br><em>ou seu dinheiro de volta.</em></h2>
+      <p>Se em qualquer momento antes da publicação você sentir que o projeto
+         não está no caminho certo, cancelamos e devolvemos 100% do valor.
+         Trabalhamos sem pressão — só ficamos satisfeitos quando você está.</p>
+      <a href="https://wa.me/5515998079816?text=Oi%20Carlos!%20Quero%20conversar%20sobre%20o%20site%20para%20minha%20cl%C3%ADnica."
+         class="btn-primary" target="_blank">
+        Falar com a DG Growth →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL ─────────────────────────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-inner">
+      <span class="section-label">Próximo passo</span>
+      <h2>Pronta para sua clínica<br><em>aparecer onde importa?</em></h2>
+      <p>Com seu site no ar, sua clínica passa a captar pacientes pelo Google e
+         converter visitantes em agendamentos — enquanto você foca no que realmente importa.</p>
+      <div class="cta-buttons">
+        <a href="https://wa.me/5515998079816?text=Oi%20Carlos!%20Vi%20o%20material%20da%20DG%20Growth%20e%20quero%20criar%20o%20site%20da%20minha%20cl%C3%ADnica."
+           class="btn-primary" target="_blank">
+          Quero começar agora →
+        </a>
+        <a href="mailto:contato@dggrowth.com.br" class="btn-secondary">
+          Enviar e-mail
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-logo">
+    <span>DG</span> GROWTH
+  </div>
+  <p style="font-size:.8rem; color:var(--white-dim); margin-top:6px;">Estratégias Digitais & IA · dggrowth.com.br</p>
+  <div class="footer-links">
+    <a href="https://dggrowth.com.br" target="_blank">dggrowth.com.br</a>
+    <a href="https://wa.me/5515998079816" target="_blank">(15) 99807-9816</a>
+    <a href="mailto:contato@dggrowth.com.br">contato@dggrowth.com.br</a>
+    <a href="https://instagram.com/dggrowth" target="_blank">@dggrowth</a>
+  </div>
+</footer>
+
+</body>
+</html>
