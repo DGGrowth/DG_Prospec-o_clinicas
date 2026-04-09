@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "routes": [
+    { "src": "/", "dest": "/dg-prospeccao-clinica.html" },
+    { "src": "/clinicas", "dest": "/dg-prospeccao-clinica.html" },
+    { "src": "/proposta-marketing", "dest": "/dg-proposta-marketing.html" }
+  ]
+}
